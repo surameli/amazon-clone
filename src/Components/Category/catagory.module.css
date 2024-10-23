@@ -1,0 +1,38 @@
+.catogry{
+  height: 320px;
+  width: 95%;  
+  background-color: #fff;
+  box-shadow: 0 0 10px rgb(0, 0,0, 0.2);
+}
+.catogry img{
+    width: 90%;
+    object-fit: contain;
+    max-height: 220px;
+    padding: 0px 10px;
+}
+.catogry a{
+    text-decoration: none;
+    color: rgb(35,35,35);
+}
+.catogry h2,
+.catogry p{
+    padding: 5px;
+    margin-left: 45px;
+    font-size: 18px;
+   
+}
+.catogry p{
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(9,132,209);
+}
+.Category_container{
+    position: relative;
+    margin-top: -200px;
+    display: grid;
+    grid-template-columns: repeat(4 , 1fr);
+    /* gap: -10px; */
+    place-items: center;
+    width: 100%;
+
+}
