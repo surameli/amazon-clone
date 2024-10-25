@@ -1,5 +1,6 @@
 import React from 'react'
 import LowerHeader from './LowerHeader';
+import {Link} from 'react-router-dom'
 import header from './header.module.css'
 import { LuMapPin } from "react-icons/lu";
 import { IoIosSearch } from "react-icons/io";
@@ -12,9 +13,9 @@ const Header = () => {
             <div className={header.header_container}>
             <div className={header.logo_container}>
                 {/* logo */}
-                <a href="/">
+                <Link to ="/">
                     <img src="https://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="amazon logo" />
-                </a>
+                </Link>
                 {/* delivery */}
                 <div className={header.delivery} >
                 <span>
@@ -37,31 +38,31 @@ const Header = () => {
 
             <div className={header.order_container}>
                 {/* right side link */}
-                <a href="">
+                <Link to ="">
                 <div  className={header.language}>
                     <img src="https://img.freepik.com/premium-vector/usa-flag-vector-illustration_768467-359.jpg?w=900" alt="" />
                     <select>
                         <option value="">EN</option>
                     </select>
                 </div>
-                </a>
+                </Link>
                 {/* three components */}
-                <a href="">
+                <Link to ="">
                     <div>
                         <p>Sign In</p>
                         <span>Account & Lists</span>
                     </div>
-                </a>
+                </Link>
                 {/* orders */}
-                <a href="">
+                <Link to ="/orders">
                     <p>returns</p>
                     <span>& orders</span>
-                </a>
+                </Link>
                 {/* cart */}
-                <a href=""  className={header.cart}>
+                <Link to ="/cart"  className={header.cart}>
                   <BiCart size={45}/>
                    <span>0</span>
-                </a>
+                </Link>
             </div>
             </div>
         </section>

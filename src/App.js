@@ -1,19 +1,10 @@
-
-
 import './App.css';
-import Header from './Components/Header/Header';
-import Carousel from './Components/Carousel/CarouselEffect';
-import Category from './Components/Category/Category';
-import Product from './Components/Product/Product';
+import Routeing from './Router';
 
 function App() {
   return (
     <div className="App">
-      <Header/>
-      {/* <Carousel/> */}
-     { <Carousel/>}
-      <Category/>
-      <Product/>
+     <Routeing/>
     </div>
   );
 }
