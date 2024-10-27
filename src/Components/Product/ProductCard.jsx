@@ -1,32 +1,54 @@
-import React from 'react'
-import Rating from'@mui/material/Rating'
-import CurrencyFormat from '../CurrencyFormat/CurrencyFormat'
-import product from './product.module.css'
-function ProductCard({products}) {
-    const {image, title, id,rating, price} =products;
-  return (
-    <div className={product.product_container}>
-        <a href="">
-            <img src={image} alt="" />
-        </a>
-        <div>
-            <h3>{title}</h3>
-            <div className= {product.ratting}>
-                {/* rating */}
-                <Rating value={rating.rate} precision={0.1}/>
-                {/* price */}
-                <small>{rating.count}</small>
-            </div>
+import React, { useContext } from 'react';
+import Rating from '@mui/material/Rating';
+import CurrencyFormat from '../CurrencyFormat/CurrencyFormat';
+import productStyles from './product.module.css';
+import { Link } from 'react-router-dom';
+import { DataContext } from '../DataProvider/DataProvider';
+import { Type } from '../../Utility/action.type';
+function ProductCard({ product, flex}) {
+
+    console.log(product);
+    
+    // Default destructure with fallback for undefined properties
+    const { image, title, id, rating = {}, price } = product || {};
+    console.log(image);
+      const [state, dispatch] = useContext(DataContext)
+
+
+      const addToCart = ()=>{
+         dispatch({
+            type: Type.ADD_TO_BASKET,
+            item:{
+                image, title, id, rating ,price
+            }
+         })
+
+      }
+
+    return (
+        <div className={productStyles.product_container_abtrshi} >
+            <div className={`${productStyles.product_container} ${flex ? productStyles.product_flex : ''}`}>
+            <Link to={`/products/${id}`}>
+                <img src={image} alt={title || 'Product Image'} />
+            </Link>
             <div>
-                {/* price */}
-                <CurrencyFormat amount={price}/>
+                <h3>{title || 'No Title Available'}</h3>
+                <div className={productStyles.ratting}>
+                    {/* Rating */}
+                    <Rating value={rating.rate || 0} precision={0.1} />
+                    <small>{rating.count || 0}</small>
+                </div>
+                <div>
+                    {/* Price */}
+                    <CurrencyFormat amount={price || 0} />
+                </div>
+                <button className={productStyles.button} onClick={addToCart}>
+                    Add to cart
+                </button>
             </div>
-            <button className={product.button}> 
-                add to cart
-            </button>
         </div>
-    </div>
-  )
+        </div>
+    );
 }
 
-export default ProductCard
+export default ProductCard;

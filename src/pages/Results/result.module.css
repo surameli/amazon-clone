@@ -1,0 +1,8 @@
+.results{
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping of items to fit in multiple rows */
+    justify-content: center; /* Centers items horizontally */
+    max-width: 1650px;
+    gap: 15px; /* Space between items */
+    margin: 50px 50px 50px 50px;
+}

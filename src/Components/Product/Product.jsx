@@ -1,31 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductCard from './ProductCard';
-import product from './product.module.css'
+import productstyle from './product.module.css'
+import Loader from '../../Components/Loader/loader';
 function Product() {
   // Initialize products as an empty array
-  const [products, setProduct] = useState([]);
-
+  const [product, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    axios.get('https://fakestoreapi.com/products')
+    setIsLoading(true);
+    axios.get(`https://fakestoreapi.com/products`)
       .then((res) => {
-        setProduct(res.data); // Update the state with the fetched products
+        setProducts(res.data); // Update the state with the fetched products
+        setIsLoading(false);
+        
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
       });
   }, []);
 
   return (
-    <section className= {product.allProduct_container}>
-      {products.length > 0 ? (
-        products.map((singleProduct) => (
-          <ProductCard products={singleProduct} key={singleProduct.id} />
-        ))
-      ) : (
-        <p>Loading products...</p>  // Display loading message while products are being fetched
-      )}
-    </section>
+    <> {
+      isLoading ? (<Loader />) : (    <section className= {productstyle.allProduct_container}>
+        {product.length > 0 ? (
+          product.map((singleProduct) => (
+            <ProductCard product={singleProduct} key={singleProduct.id} />
+          ))
+        ) : (
+          <p>Loading products...</p>  // Display loading message while products are being fetched
+        )}
+        </section>)
+    } 
+
+
+  </>
+   
   );
 }
 
