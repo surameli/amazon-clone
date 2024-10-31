@@ -5,12 +5,12 @@ import productStyles from './product.module.css';
 import { Link } from 'react-router-dom';
 import { DataContext } from '../DataProvider/DataProvider';
 import { Type } from '../../Utility/action.type';
-function ProductCard({ product, flex}) {
+function ProductCard({ product, flex, renderDesc ,renderAdd}) {
 
     console.log(product);
     
     // Default destructure with fallback for undefined properties
-    const { image, title, id, rating = {}, price } = product || {};
+    const { image, title, id, rating = {}, price, description } = product || {};
     console.log(image);
       const [state, dispatch] = useContext(DataContext)
 
@@ -19,7 +19,7 @@ function ProductCard({ product, flex}) {
          dispatch({
             type: Type.ADD_TO_BASKET,
             item:{
-                image, title, id, rating ,price
+                image, title, id, rating ,price, description
             }
          })
 
@@ -33,6 +33,7 @@ function ProductCard({ product, flex}) {
             </Link>
             <div>
                 <h3>{title || 'No Title Available'}</h3>
+                {renderDesc && <div style={{maxWidth: "750px"}}>{description}</div>}
                 <div className={productStyles.ratting}>
                     {/* Rating */}
                     <Rating value={rating.rate || 0} precision={0.1} />
@@ -42,9 +43,11 @@ function ProductCard({ product, flex}) {
                     {/* Price */}
                     <CurrencyFormat amount={price || 0} />
                 </div>
-                <button className={productStyles.button} onClick={addToCart}>
+                {renderAdd && <button className={productStyles.button} onClick={addToCart}>
                     Add to cart
                 </button>
+                }
+                
             </div>
         </div>
         </div>

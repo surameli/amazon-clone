@@ -26,7 +26,7 @@ function Product() {
       isLoading ? (<Loader />) : (    <section className= {productstyle.allProduct_container}>
         {product.length > 0 ? (
           product.map((singleProduct) => (
-            <ProductCard product={singleProduct} key={singleProduct.id} />
+            <ProductCard  renderAdd={true} product={singleProduct} key={singleProduct.id} />
           ))
         ) : (
           <p>Loading products...</p>  // Display loading message while products are being fetched
