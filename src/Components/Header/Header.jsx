@@ -6,9 +6,10 @@ import { LuMapPin } from "react-icons/lu";
 import { IoIosSearch } from "react-icons/io";
 import { BiCart } from "react-icons/bi";
 import { DataContext } from '../DataProvider/DataProvider';
+import { auth } from '../../Utility/firebase';
 
 const Header = () => {
-    const[{basket},dispatch] =useContext(DataContext)
+    const[{basket, user},dispatch] =useContext(DataContext)
     const totalItem = basket?.reduce((amount,item)=>{
         return item.amount+ amount
     } , 0)
@@ -52,10 +53,26 @@ const Header = () => {
                 </div>
                 </Link>
                 {/* three components */}
-                <Link to ="">
+                <Link to ={ !user && "/auth"}>
                     <div>
-                        <p>Sign In</p>
-                        <span>Account & Lists</span>
+                       
+                        <div>
+                            {user ?(
+                                <>
+                                <p>Hello, {user?.email?.split('@')[0]}</p>
+                                <span onClick={() => auth.signOut()}>Sign Out</span>
+                                </>
+                                ):(
+                                    <>
+                                      <p> Hello, Sign In</p>
+                                      <span>Account & Lists</span>
+                                    </>
+                                  
+                                )
+                            }
+                        </div>
+                        
+                        
                     </div>
                 </Link>
                 {/* orders */}
