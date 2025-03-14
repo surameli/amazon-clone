@@ -30,9 +30,11 @@
     position: relative;
     margin-top: -200px;
     display: grid;
-    grid-template-columns: repeat(4 , 1fr);
+    grid-template-columns: repeat(auto-fit , minmax(350px, 1fr));
     /* gap: -10px; */
     place-items: center;
-    width: 100%;
+    max-width: 1600px;
+    gap: 50px;
+    place-items: center;
 
 }

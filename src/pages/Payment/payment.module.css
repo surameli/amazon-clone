@@ -46,6 +46,13 @@ min-width: 300px;
 .payment_details button:hover{
     background-color: var(--primary-shade);
 }
+.payment_loader{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    color: rgb(52,52,52);
+}
 @media screen and (max-width: 760px){
     .flex{
         flex-direction: column;

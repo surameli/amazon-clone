@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Signstyle from './signup.module.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate , useLocation } from 'react-router-dom';
 import {auth} from '../../Utility/firebase';
 import {signInWithEmailAndPassword , createUserWithEmailAndPassword} from 'firebase/auth';
 import { DataContext } from '../../Components/DataProvider/DataProvider';
 import { useContext } from 'react';
 import { Type } from '../../Utility/action.type';
 import { ClipLoader } from 'react-spinners';
+
 function Auth() {
   const [email, setEmail] = useState("");
   const [passWord , setPassword] = useState("");
@@ -18,11 +19,16 @@ function Auth() {
 
    const [{user}, dispatch] = useContext(DataContext);
    const navigate = useNavigate();
+   const navStateData = useLocation()
   //  console.log(user);
+  // console.log(navStateData.state);
+  // console.log(navStateData.state.redirect);
+  
+  
    
   const authHandler = async(e) => {
         e.preventDefault(); 
-        console.log(e.target.name);
+        // console.log(e.target.name);
         if (e.target.name === "signIn") {
           setLoading({...loading, signIn:true})
              signInWithEmailAndPassword(auth, email, passWord).then((userinfo) =>{
@@ -32,10 +38,14 @@ function Auth() {
                 user:userinfo.user
               });
               setLoading({...loading, signIn:false})
-              navigate("/")
+              navigate( navStateData?.state?.redirect || "/")
+              // console.log("login sucessuflly");
+              
              }).catch((err)=>{
                setErorr(err.message)
                setLoading({...loading, signIn:false})
+               
+              
              });
         } else {
           setLoading({...loading, signUp:true})
@@ -46,7 +56,7 @@ function Auth() {
               user:userinfo.user
             });
             setLoading({...loading, signUp:false})
-            navigate("/")
+            navigate( navStateData?.state?.redirect || "/")
            }).catch((err)=>{
             setErorr(err.message)
             setLoading({...loading, signUp:false}) 
@@ -65,6 +75,17 @@ function Auth() {
         {/* Sign In Form */}
         <div className={`${Signstyle.login_container} } `}>
           <h1>Sign In</h1>
+           {navStateData?.state?.message && (
+            <small style={{
+              padding:"5px",
+              textAlign:"center",
+              color:"red",
+              fontWeight: "bold",
+            }} >
+              {navStateData?.state?.message}
+            </small>
+
+           )}
           <form >
             <div className={Signstyle.login_form}>
               <label htmlFor="login-email">Email</label>
